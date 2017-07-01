@@ -14,7 +14,8 @@ module Habuco
     def build
       {}.tap do |h|
         attribute_definitions.each do |key, definition|
-          h[key] = definition.value
+          value = definition.value
+          h[key] = value.respond_to?(:call) ? value.call : value
         end
       end
     end
