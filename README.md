@@ -22,7 +22,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Static value
+
+```ruby
+class HashBuilder
+  include Habuco
+
+  attribute :foo, :bar
+end
+
+HashBuilder.build # => { foo: :bar }
+```
 
 ## Development
 
