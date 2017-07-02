@@ -72,6 +72,18 @@ end
 HashBuilder.build # => { foo: { bar: :foobar } }
 ```
 
+### Dynamic key
+
+```ruby
+class HashBuilder
+  include Habuco
+
+  attribute -> { :"foo_#{n}" }, :bar
+end
+
+HashBuilder.build(n: 123) # => { foo_123: :bar }
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

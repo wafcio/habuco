@@ -44,7 +44,8 @@ module Habuco
       self.class.attribute_definitions.each do |key, definition|
         val = definition.value
         d = definition.namespace.inject(data) { |h, k| h[k] ||= {} }
-        d[key] = val.respond_to?(:call) ? context.instance_exec(&val) : val
+        k = key.respond_to?(:call) ? context.instance_exec(&key) : key
+        d[k] = val.respond_to?(:call) ? context.instance_exec(&val) : val
       end
     end
   end
