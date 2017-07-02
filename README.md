@@ -84,6 +84,20 @@ end
 HashBuilder.build(n: 123) # => { foo_123: :bar }
 ```
 
+### Collection
+
+```ruby
+class HashBuilder
+  include Habuco
+
+  each_with_index -> { collection } do |val, index|
+    attribute :"foo_#{index}", val
+  end
+end
+
+HashBuilder.build(collection: %i[red green blue]) # => { foo_0: :red, foo_1: :green, foo_2: :blue }
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

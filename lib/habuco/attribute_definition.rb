@@ -1,5 +1,5 @@
 module Habuco
-  class Definition
+  class AttributeDefinition
     attr_reader :name, :value, :namespace
 
     def initialize(name, value, namespace)
