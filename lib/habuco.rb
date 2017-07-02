@@ -6,11 +6,22 @@ require 'habuco/version'
 module Habuco
   module ClassMethods
     def attribute(name, value = nil)
-      attribute_definitions[name] = Definition.new(name, value)
+      namespace = namespace_scope.dup
+      attribute_definitions[name] = Definition.new(name, value, namespace)
     end
 
     def attribute_definitions
       @attribute_definitions ||= {}
+    end
+
+    def namespace(name)
+      namespace_scope.push(name)
+      yield
+      namespace_scope.pop
+    end
+
+    def namespace_scope
+      @namespace_scope ||= []
     end
 
     def build(context = {})
@@ -29,10 +40,11 @@ module Habuco
   end
 
   def build
-    {}.tap do |h|
+    {}.tap do |data|
       self.class.attribute_definitions.each do |key, definition|
-        value = definition.value
-        h[key] = value.respond_to?(:call) ? context.instance_exec(&value) : value
+        val = definition.value
+        d = definition.namespace.inject(data) { |h, k| h[k] ||= {} }
+        d[key] = val.respond_to?(:call) ? context.instance_exec(&val) : val
       end
     end
   end

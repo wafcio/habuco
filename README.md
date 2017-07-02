@@ -58,6 +58,20 @@ end
 HashBuilder.build(user_name: 'John') # => { foo: 'John' }
 ```
 
+### Namespace
+
+```ruby
+class HashBuilder
+  include Habuco
+
+  namespace :foo do
+    attribute :bar, :foobar
+  end
+end
+
+HashBuilder.build # => { foo: { bar: :foobar } }
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
