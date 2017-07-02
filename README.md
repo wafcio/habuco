@@ -46,6 +46,18 @@ end
 HashBuilder.build # => { date: #<Date: 2000-01-01 ((2447893j,0s,0n),+0s,2299161j)> }
 ```
 
+### Value with context
+
+```ruby
+class HashBuilder
+  include Habuco
+
+  attribute :foo, -> { user_name }
+end
+
+HashBuilder.build(user_name: 'John') # => { foo: 'John' }
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
